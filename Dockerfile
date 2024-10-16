@@ -46,3 +46,5 @@ ENV PLEX_MEDIA_SERVER_INFO_VENDOR=AMD
 ENV PLEX_MEDIA_SERVER_INFO_DEVICE=AMDGPU-Pro
 
 RUN clinfo
+
+HEALTHCHECK --interval=5s --timeout=2s --retries=20 --start-period=40s CMD curl --connect-timeout 15 --max-time 100 --silent --show-error --fail http://localhost:32400/identity || exit 1

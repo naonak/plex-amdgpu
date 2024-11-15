@@ -12,12 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Step 3: Download and install the AMDGPU-Pro package
-RUN apt-get update && \
-    apt-get install -y curl && \
-    VERSION=$(curl -s https://repo.radeon.com/amdgpu-install/latest/ubuntu/noble/ | \
+RUN VERSION=$(curl -s https://repo.radeon.com/amdgpu-install/latest/ubuntu/noble/ | \
     grep -oP 'amdgpu-install_\K[\d.-]+(?=_all\.deb)' | head -n 1) && \
-    curl -sL https://repo.radeon.com/amdgpu-install/latest/ubuntu/noble/amdgpu-install_${VERSION}_all.deb -o amdgpu-install.deb && \
-    dpkg -i amdgpu-install.deb || apt-get install -f -y && \
+    curl -sL https://repo.radeon.com/amdgpu-install/latest/ubuntu/noble/amdgpu-install_${VERSION}_all.deb -o amdgpu-install.deb
+
+RUN  dpkg -i amdgpu-install.deb || apt-get install -f -y && \
     rm -f amdgpu-install.deb
 
 # Step 4: Run the AMDGPU-Pro script with EULA acceptance and no DKMS

@@ -1,3 +1,5 @@
+# Docker update 2025-08-07
+
 # Step 1: Base image
 FROM ghcr.io/linuxserver/plex:latest AS base
 
